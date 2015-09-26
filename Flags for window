@@ -1,0 +1,13 @@
+SDL_WINDOW_FULLSCREEN Make the windowfullscreen
+SDL_WINDOW_OPENGL Window can be usedwith as an OpenGL 
+context
+SDL_WINDOW_SHOWN The window is visible
+SDL_WINDOW_HIDDEN Hide the window
+SDL_WINDOW_BORDERLESS No border on the window
+SDL_WINDOW_RESIZABLE Enable resizingof the window
+SDL_WINDOW_MINIMIZED Minimize the window
+SDL_WINDOW_MAXIMIZED Maximize the window
+SDL_WINDOW_INPUT_GRABBED Window has grabbed input focus
+SDL_WINDOW_INPUT_FOCUS Window has input focus
+SDL_WINDOW_MOUSE_FOCUS Window has mouse focus
+SDL_WINDOW_FOREIGN The window was not created using SDL

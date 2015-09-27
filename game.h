@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window\Window.h"
+#include <iostream>
 
 class Game
 {

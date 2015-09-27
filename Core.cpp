@@ -4,47 +4,32 @@
 #include "stdafx.h"
 #include <conio.h>
 #include <iostream>
-#include "mState.h"
+#include "Game.h"
+#include "Config.h"
 
 
 using namespace std;
 
-void f1()
+void easyFunc(int one)
 {
-	while (true)
-	{
-		cout << "lol!" << endl;
-	}
+	cout << "Example of function: " << one << endl;
 }
 
-void f2(int one)
+int main(int Arg_N, char ** Arg_V)
 {
-	cout << "one: " << one << endl;
-}
-
-
-class example
-{
-public:
-	void func()
-	{
-		cout << "hello!" << endl;
-	}
-};
-int main()
-{
-	mState game;
-	if (game.setCurrent(start, f2));
-		{
-			if (game.setCurrent(loadscreen, f2))
-			{
-				if (game.setCurrent(menu, f2))
-				{
-					cout << "Wellcome to the game!" << endl;
-				}
-			}
-		}
-	while (!_kbhit());
+	int xPos, yPos;
+	int wid, len;
+	char *name = new char[100];
+	cout << "input start position (x,y): ";
+	cin >> xPos >> yPos;
+	cout << "input width and length of game window: ";
+	cin >> wid >> len;
+	cout << "input name of game window: ";
+	cin >> name;
+	Config easyCon(xPos, yPos, wid, len, name, "config.txt");
+	Game example(easyCon, easyFunc);
+	example.GameWindow();
     return 0;
 }
+
 

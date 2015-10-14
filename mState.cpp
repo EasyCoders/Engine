@@ -1,50 +1,67 @@
-// Core.cpp: определяет точку входа для консольного приложения.
-//
-
 #include "stdafx.h"
-#include <conio.h>
-#include <iostream>
 #include "mState.h"
+#include <cstdlib>
 
-
-using namespace std;
-
-void f1()
+mState::mState()
 {
-	while (true)
+	current = 0;
+}
+
+
+mState::~mState()
+{
+}
+
+
+void mState::setTopState(int state, void(*example) (int))
+{
+	stateSt.push(state);
+	current = state;
+
+	mProcess objProcess(example);
+
+	process.insert(process.end(), objProcess);
+
+}
+
+
+int mState::setCurrent(int state, void(*example) (int))
+{
+	mProcess objProcess(example);
+
+	process.insert(process.end(), objProcess);
+
+	objProcess.runFunc();
+	current = state;
+
+
+	return 1;
+}
+
+
+void mState::closeTopState()
+{
+	stateSt.pop();
+	if (stateSt.empty())
 	{
-		cout << "lol!" << endl;
+		exit(1);
 	}
+	current = stateSt.top();
 }
 
-void f2(int one)
+void mState::closeCurrent()
 {
-	cout << "one: " << one << endl;
+	current = stateSt.top();							//в процессе доработки ядра это место, еще будет дорабатыватся
 }
 
-
-class example
+int mState::getCurrent()
 {
-public:
-	void func()
-	{
-		cout << "hello!" << endl;
-	}
-};
-int main()
-{
-	mState game;
-	if (game.setCurrent(start, f2));
-		{
-			if (game.setCurrent(loadscreen, f2))
-			{
-				if (game.setCurrent(menu, f2))
-				{
-					cout << "Wellcome to the game!" << endl;
-				}
-			}
-		}
-	while (!_kbhit());
-    return 0;
+	return current;
 }
+
+int mState::getQuant()
+{
+	return stateSt.size();
+}
+
 

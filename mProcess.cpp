@@ -6,14 +6,13 @@ using namespace std;
 
 mProcess::mProcess()
 {
-	stateProcess = 1;			//?	
-	function = NULL;
+	stateProcess = 1;							//возможен рефакторинг данной части кода
 }
 
-mProcess::mProcess(void (*example) (int))
+mProcess::mProcess(ModuleBase *_obj)
 {
-	function = example;
-	stateProcess = 1;
+	obj = _obj;
+	stateProcess = 1;							//присваиваем состоянию процесса статус "активный"			
 }
 
 
@@ -28,14 +27,15 @@ void mProcess::setState(int state)
 	stateProcess = state;
 }
 
-void mProcess::setFunction(void(*example)(int))
+void mProcess::setRuntimeObject(ModuleBase *_obj)
 {
-	function = example;
+	obj = _obj;
 }
 
 int mProcess::runFunc()
 {
-	(*function) (8);
-	return 1;
+	thread stream(&ModuleBase::method, obj);	//передаём адресс метода и адресс вызывающего этот метод объекта в поток (объект thread)
+	stream.detach();							//отсоединяем данный поток от дескриптора его вызова (от главного потока) 
+												//метод detach на данный момент является источником описанной в Core.cpp проблемы
+	return 1;									
 }
-

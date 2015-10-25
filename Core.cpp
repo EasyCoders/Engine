@@ -58,16 +58,16 @@ public:
 int main(int Arg_N, char ** Arg_V)
 {
 	
-	int xPos, yPos;
-	int wid, len;
-	char *name = new char[100];
-	cout << "input start position (x,y): ";
+	int xPos, yPos;								//временные переменные позиции окна
+	int wid, len;								//временные переменные размеров окна
+	char *name = new char[100];						//врменная переменная имя окна
+	cout << "input start position (x,y): ";					
 	cin >> xPos >> yPos;
 	cout << "input width and length of game window: ";
 	cin >> wid >> len;
 	cout << "input name of game window: ";
 	cin >> name;
-	Config easyCon(xPos, yPos, wid, len, name, "config.txt");		//создаём обьект конфигурации окна
+	Config easyCon(xPos, yPos, wid, len, name, "config.txt");		//создаём обьект конфигурации окна передавая временные переменные
 	
 	user obj;														//создаём обьект пользовательского класса
 	winStart win(easyCon);											//создаём обьект класса создания окна по переданной в easyCon конфигурации

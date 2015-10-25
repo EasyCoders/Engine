@@ -13,21 +13,21 @@ mState::~mState()
 }
 
 
-void mState::setTopState(int state, void(*example) (int))
-{
-	stateSt.push(state);
-	current = state;
+void mState::setTopState(int state, ModuleBase *obj)		
+{		
+	stateSt.push(state);										//добавляем новое состояние игры в стек
+	current = state;											//устанавливаем идентификатор текушего состояния
+																
+	mProcess objProcess(obj);								    //создаём обьект процесса и передаём ему указатель на функцию
 
-	mProcess objProcess(example);
-
-	process.insert(process.end(), objProcess);
-
+	process.insert(process.end(), objProcess);					//добавляём процесс в вектор процессов используя средства итератора
+	objProcess.runFunc();										//запускаём функцию (процесс)				
 }
 
-
-int mState::setCurrent(int state, void(*example) (int))
-{
-	mProcess objProcess(example);
+// данная функция, возможно будет подвержена рефакторингу, после перестройки ядра
+int mState::setCurrent(int state, ModuleBase *obj)			    //из алгоритма setTopState убрано добавление состояния в стек 
+{																
+	mProcess objProcess(obj);
 
 	process.insert(process.end(), objProcess);
 
@@ -41,12 +41,12 @@ int mState::setCurrent(int state, void(*example) (int))
 
 void mState::closeTopState()
 {
-	stateSt.pop();
-	if (stateSt.empty())
+	stateSt.pop();										//выгружаем верхнее состояние из стека
+	if (stateSt.empty())								//если стек остался пуст, завершаем с кодом 1
 	{
 		exit(1);
 	}
-	current = stateSt.top();
+	current = stateSt.top();							//верхнее состояние в стеке становится текущим состоянием игры
 }
 
 void mState::closeCurrent()
@@ -56,12 +56,13 @@ void mState::closeCurrent()
 
 int mState::getCurrent()
 {
-	return current;
+	return current;										
 }
 
 int mState::getQuant()
 {
 	return stateSt.size();
 }
+
 
 

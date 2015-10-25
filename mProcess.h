@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "ModuleBase.h"
 using namespace std;
 
 enum ProcessState
@@ -11,18 +12,18 @@ enum ProcessState
 
 class mProcess
 {
-	void (*function) (int);						//указател ть на функцию - хранит адресс функции процесса
+	ModuleBase *obj;						    //указател ть на функцию - хранит адресс функции процесса
 	int stateProcess;							//состояние процесса		
 public:
 	mProcess();
-	mProcess(void (*p) (int));
+	mProcess(ModuleBase *_obj);					//конструктор принимающий указатель на функцию
 	
 
 	int getState();								//возвращает идентификатор состояния процесса
 	void setState(int state);					//устанавливает идентификатор состояния процесса
 	
-	void setFunction(void(*example) (int));
+	void setRuntimeObject(ModuleBase *_obj);		//альтернатива конструктору
 	
-	int runFunc();
+	int runFunc();								//запускает процесс на выполнение
 
 };
